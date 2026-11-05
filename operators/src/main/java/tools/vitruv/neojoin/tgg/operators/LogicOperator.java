@@ -1,0 +1,20 @@
+package tools.vitruv.neojoin.tgg.operators;
+
+public enum LogicOperator {
+    Equals("=="),
+    NotEquals("!="),
+    LessThan("<"),
+    LessEquals("<="),
+    MoreThan(">"),
+    MoreEquals(">=");
+
+    final String representation;
+
+    LogicOperator(String representation) {
+        this.representation = representation;
+    }
+
+    public String print() {
+        return representation;
+    }
+}

@@ -11,6 +11,10 @@
 
     <artifactId>tools.vitruv.neojoin.tgg.p2wrappers</artifactId>
     <packaging>pom</packaging>
+
+    <name>p2 Dependency Wrappers</name>
+    <description>Maven wrappers for dependencies that are only available from a p2 update site.</description>
+
     <modules>
         <module>emsl</module>
     </modules>

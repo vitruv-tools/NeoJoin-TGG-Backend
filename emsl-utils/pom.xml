@@ -12,7 +12,7 @@
     <artifactId>tools.vitruv.neojoin.tgg.emsl-utils</artifactId>
 
     <name>eMSL Utils</name>
-    <description/>
+    <description>Generates eMSL metamodels and models from EMF metamodels and models.</description>
 
     <dependencies>
         <dependency>

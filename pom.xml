@@ -17,7 +17,7 @@
   <packaging>pom</packaging>
 
   <name>TGG Backend</name>
-  <description />
+  <description>Triple graph grammar (TGG) backend of NeoJoin. Transforms the operators of a NeoJoin view into TGGs and generates eMoflon::Neo projects for bidirectional, incremental transformations.</description>
   <url>https://github.com/vitruv-tools/NeoJoin-TGG-Backend</url>
 
   <!-- Organizational Information -->

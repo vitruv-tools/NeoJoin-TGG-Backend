@@ -14,7 +14,7 @@
   <artifactId>tools.vitruv.neojoin.tgg.transpiler</artifactId>
 
   <name>TGG Transpiler</name>
-  <description />
+  <description>Resolves view operators into triple rules and triple graph grammars and prints them as eMSL.</description>
 
   <dependencies>
     <dependency>
