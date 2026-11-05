@@ -11,6 +11,7 @@
 
     <artifactId>tools.vitruv.neojoin.tgg.emsl-parser</artifactId>
     <name>eMSL Parser</name>
+    <description>Parser for eMSL, the textual metamodel and model language of eMoflon::Neo.</description>
 
     <dependencies>
         <dependency>

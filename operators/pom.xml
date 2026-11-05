@@ -14,7 +14,7 @@
   <artifactId>tools.vitruv.neojoin.tgg.operators</artifactId>
 
   <name>TGG Operators</name>
-  <description />
+  <description>Operators that define a view and the extraction of these operators from the abstract query representation of NeoJoin.</description>
 
   <dependencies>
     <dependency>

@@ -14,7 +14,7 @@
   <artifactId>tools.vitruv.neojoin.tgg.driver</artifactId>
 
   <name>TGG Driver</name>
-  <description />
+  <description>Generates eMoflon::Neo Eclipse projects from triple graph grammars.</description>
 
   <dependencies>
     <dependency>
