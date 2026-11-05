@@ -1,0 +1,25 @@
+version: 2
+updates:
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: daily
+  commit-message:
+    prefix: "GitHub Actions"
+    include: "scope"
+- package-ecosystem: "maven"
+  directory: "/"
+  schedule:
+    interval: daily
+  commit-message:
+    prefix: "Maven"
+    include: "scope"
+  ignore:
+  - dependency-name: "org.eclipse.xtext:*" # has to match the version of the NeoJoin language module, which requires Java 17
+  groups:
+    ecore:
+      patterns:
+      - "org.eclipse.emf:org.eclipse.emf.ecore*"
+    jte:
+      patterns:
+      - "gg.jte:*"
