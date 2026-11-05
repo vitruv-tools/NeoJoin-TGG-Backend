@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>tools.vitruv.neojoin.p2wrappers.emsl</artifactId>
+            <artifactId>tools.vitruv.neojoin.tgg.p2wrappers.emsl</artifactId>
             <version>${project.version}</version>
         </dependency>
 
