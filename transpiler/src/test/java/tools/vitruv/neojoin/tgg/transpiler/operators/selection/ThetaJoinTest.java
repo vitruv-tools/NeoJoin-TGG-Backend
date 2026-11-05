@@ -1,0 +1,48 @@
+package tools.vitruv.neojoin.tgg.transpiler.operators.selection;
+
+import org.junit.jupiter.api.Test;
+import tools.vitruv.neojoin.tgg.operators.FQN;
+import tools.vitruv.neojoin.tgg.operators.FunctionInvocation;
+import tools.vitruv.neojoin.tgg.operators.selection.Pattern;
+import tools.vitruv.neojoin.tgg.transpiler.TranspilerQueryResolver;
+import tools.vitruv.neojoin.tgg.transpiler.operators.patterns.ResolvedPattern;
+import tools.vitruv.neojoin.tgg.transpiler.graph.tgg.TripleRule;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class ThetaJoinTest {
+
+    private static FQN pkg(String name) {
+        return new FQN("pkg", name);
+    }
+
+    private ResolvedPattern resolve(Pattern pattern) {
+        return new TranspilerQueryResolver().resolvePattern(pattern);
+    }
+
+    @Test
+    void thetaJoinToPattern() {
+        var function = new FunctionInvocation("concatWith")
+                .setConstrainedArgument("return", pkg("A"), "name")
+                .setConstrainedArgument("self", pkg("B"), "prename")
+                .setConstrainedArgument("text", pkg("B"), "surname");
+        var pattern = Pattern.from(pkg("A")).join(pkg("B"), function);
+        assertEquals("pkg.A ⨝(pkg.A::name=pkg.B::prename->concatWith(text: pkg.B::surname)) pkg.B", pattern.toString());
+        var rule = new TripleRule();
+        resolve(pattern).extendSlice(rule.allSourcesAsSlice());
+        assertEquals("src: [<a: pkg.A;;.name==<name>>, <b: pkg.B;;.prename==<prename>,.surname==<surname>>] tgt: [] corr: [] cs: [concatWith(self: <prename>,text: <surname>,return: <name>)]", rule.toString());
+    }
+
+    @Test
+    void thetaAndNaturalJoinToPattern() {
+        var function = new FunctionInvocation("concatWith")
+                .setConstrainedArgument("return", pkg("A"), "name")
+                .setConstrainedArgument("self", pkg("B"), "prename")
+                .setConstrainedArgument("text", pkg("B"), "surname");
+        var pattern = Pattern.from(pkg("A")).join(pkg("B"), function).join(pkg("C"), "surname");
+        assertEquals("pkg.A ⨝(pkg.A::name=pkg.B::prename->concatWith(text: pkg.B::surname)) pkg.B ⨝(surname==surname) pkg.C", pattern.toString());
+        var rule = new TripleRule();
+        resolve(pattern).extendSlice(rule.allSourcesAsSlice());
+        assertEquals("src: [<a: pkg.A;;.name==<name>>, <b: pkg.B;;.prename==<prename>,.surname==<surname>>, <c: pkg.C;;.surname==<surname>>] tgt: [] corr: [] cs: [concatWith(self: <prename>,text: <surname>,return: <name>)]", rule.toString());
+    }
+}
