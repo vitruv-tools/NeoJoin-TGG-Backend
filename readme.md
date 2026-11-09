@@ -1,5 +1,7 @@
 # NeoJoin TGG Backend
 
+[![GitHub Action CI](https://github.com/vitruv-tools/NeoJoin-TGG-Backend/actions/workflows/ci.yml/badge.svg)](https://github.com/vitruv-tools/NeoJoin-TGG-Backend/actions/workflows/ci.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vitruv-tools_NeoJoin-TGG-Backend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vitruv-tools_NeoJoin-TGG-Backend)
 [![Issues](https://img.shields.io/github/issues/vitruv-tools/NeoJoin-TGG-Backend.svg)](https://github.com/vitruv-tools/NeoJoin-TGG-Backend/issues)
 [![License](https://img.shields.io/github/license/vitruv-tools/NeoJoin-TGG-Backend.svg)](https://raw.githubusercontent.com/vitruv-tools/NeoJoin-TGG-Backend/main/LICENSE)
 
@@ -89,6 +91,23 @@ steps describe how to execute the forward and sync transformations with an initi
 ```sh
 ./mvnw verify
 ```
+
+The build resolves the NeoJoin artifacts it depends on from the Maven Central snapshot repository, which the NeoJoin repository updates with every nightly build.
+This repository does not publish artifacts yet; GitHub Actions only builds and tests it.
+We use [SonarQube](https://sonarcloud.io/project/overview?id=vitruv-tools_NeoJoin-TGG-Backend) to analyze our Maven projects.
+
+### Code Style
+
+The code style is checked with [Checkstyle](https://checkstyle.org/) (`checkstyle.xml`). The check is optional and part of the Maven profile `checkstyle`, which prints violations as warnings and does not fail the build:
+
+```sh
+# only the style check (fast)
+./mvnw checkstyle:check@validate -P checkstyle
+# or: as part of the whole build
+./mvnw verify -P checkstyle
+```
+
+Add `-Dcheckstyle.severity=error` to print the violations as errors and fail the build at the first module with violations. The CI job `Checkstyle` checks all modules and fails while there are violations.
 
 ## Used Technology
 
