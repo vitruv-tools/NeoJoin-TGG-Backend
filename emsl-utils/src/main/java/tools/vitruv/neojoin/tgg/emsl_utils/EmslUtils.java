@@ -24,9 +24,7 @@ public final class EmslUtils {
         }
 
         if (isEmslKeyword(str)) {
-
             return "^" + str;
-
         }
 
         return str;
@@ -71,9 +69,7 @@ public final class EmslUtils {
             Map<String, EEnum> metaModelEnum, EAttribute attr, EObject modelElt) {
 
         if (attr.getEType() == null) {
-
             return null;
-
         }
         EEnum eEnum = metaModelEnum.get(attr.getEType().getName());
         if (eEnum == null) {
