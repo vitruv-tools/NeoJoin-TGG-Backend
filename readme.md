@@ -10,6 +10,7 @@ The backend transforms the operators of a view definition into TGGs and generate
 
 The backend builds on the abstract query representation (`model`) and the reference expression parser (`expression-parser`) of the NeoJoin repository.
 The language frontend of NeoJoin is only used in the tests of the driver.
+Other repositories of the project are listed under the [neojoin topic](https://github.com/topics/neojoin) on GitHub.
 
 ## Usage
 
