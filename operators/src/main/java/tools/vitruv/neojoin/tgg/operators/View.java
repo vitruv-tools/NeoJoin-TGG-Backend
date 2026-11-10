@@ -16,7 +16,8 @@ import java.util.Set;
  * }
  * </pre>
  * This is a view consisting of three interdependent queries.
- * The first query selects metaclass A as A' and retains all contained children b of type B as children b of whatever type B is transformed to.
+ * The first query selects metaclass A as A' and retains all contained children b of type B as children b of whatever
+ * type B is transformed to.
  * Additionally, all links c to objects of type C are retained as links x.
  * The second query selects metaclass B as B' and the third query selects metaclasss C as C'.
  * Due to the containments and links, these queries are interdependent.
@@ -29,13 +30,16 @@ import java.util.Set;
  *     σ(C => C'),
  * }
  * </pre>
- * Note that in these queries, the missing classes that B and C are transformed to are resolved in the Κ and Λ operators.
+ * Note that in these queries, the missing classes that B and C are transformed to are resolved in the Κ and Λ
+ * operators.
  * Furthermore, the κ operator was moved to the second query. The containment operator κ tells us, that the currently
  * selected element should *contain* the referenced element. However, in TGGs this containment would be expressed as a
- * *required* context, thus making it a *contained by* rather than a *contains* requirement. This *contained by* nature is
+ * *required* context, thus making it a *contained by* rather than a *contains* requirement. This *contained by* nature
+ * is
  * reflected by the resolved containment operator Κ, which moves to the query dealing with the contained element.
  * <h2>Transform to Triple Grammar</h2>
- * Finally, the resolve view needs to be transformed to a triple grammar. Both resolving and transforming to a triple grammar
+ * Finally, the resolve view needs to be transformed to a triple grammar. Both resolving and transforming to a triple
+ * grammar
  * is done with the `toGrammar(name)` method. The view above would be transformed to triple grammar similar to this:
  * <pre>
  * tripleGrammar {
@@ -98,8 +102,10 @@ import java.util.Set;
  * }
  * </pre>
  * Note that each query is transformed to one triple rule that transforms the selected element. However, the first query
- * is transformed to a second rule, the `LinkAToC` rule. This rule expects a tuple of already transformed elements A and C
- * and transforms the link c between them to a link x. Note that the link is transformed independently of the elements to
+ * is transformed to a second rule, the `LinkAToC` rule. This rule expects a tuple of already transformed elements A and
+ * C
+ * and transforms the link c between them to a link x. Note that the link is transformed independently of the elements
+ * to
  * ensure that multiple links between elements of the same type can be transformed. This is different to containments,
  * which are included in the query and rule (see rule SelectBAsB'). In this case, elements B are only transformed when
  * they are contained by an element A, which was already transformed. Non-contained elements B are never transformed.

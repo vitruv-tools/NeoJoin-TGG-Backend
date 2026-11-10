@@ -1,13 +1,26 @@
 package tools.vitruv.neojoin.tgg.transpiler;
 
-import tools.vitruv.neojoin.tgg.operators.*;
+import tools.vitruv.neojoin.tgg.operators.Containment;
+import tools.vitruv.neojoin.tgg.operators.Filter;
+import tools.vitruv.neojoin.tgg.operators.Link;
+import tools.vitruv.neojoin.tgg.operators.Mapping;
+import tools.vitruv.neojoin.tgg.operators.Projection;
+import tools.vitruv.neojoin.tgg.operators.Query;
+import tools.vitruv.neojoin.tgg.operators.Selection;
+import tools.vitruv.neojoin.tgg.operators.View;
 import tools.vitruv.neojoin.tgg.operators.reference_operator.ReferenceOperatorChain;
 import tools.vitruv.neojoin.tgg.operators.selection.Pattern;
 import tools.vitruv.neojoin.tgg.operators.selection.PatternLink;
 import tools.vitruv.neojoin.tgg.operators.selection.Union;
 import tools.vitruv.neojoin.tgg.operators.traits.Mappable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 public abstract class QueryResolver<V, Q, S, P, RO, F, C extends Mappable, L, PA, PL> {
     public V resolveView(View view) {
@@ -21,7 +34,10 @@ public abstract class QueryResolver<V, Q, S, P, RO, F, C extends Mappable, L, PA
         var containers = findContainers(view);
         var resolvedQueries = new ArrayList<Q>();
         for (var query : view.queries()) {
-            var resolvedLinks = query.links().stream().map(link -> resolveLink(link, mappings)).flatMap(Collection::stream).toList();
+            var resolvedLinks = query.links().stream()
+                    .map(link -> resolveLink(link, mappings))
+                    .flatMap(Collection::stream)
+                    .toList();
             if (containers.containsKey(query.topMapping())) {
                 // contained queries
                 var container = containers.get(query.topMapping());
@@ -52,7 +68,8 @@ public abstract class QueryResolver<V, Q, S, P, RO, F, C extends Mappable, L, PA
      *     (D,D') => Κ(A-[c]->C-[d]->D => A'-[d]->D'),
      * }
      * </pre>
-     * However, no element can be contained in multiple containers. Therefore, this cannot be resolved and will throw an exception:
+     * However, no element can be contained in multiple containers.
+     * Therefore, this cannot be resolved and will throw an exception:
      * <pre>
      * {
      *     σ(A => A') κ(A-[b]->B => A'-[b]->?),
@@ -142,7 +159,13 @@ public abstract class QueryResolver<V, Q, S, P, RO, F, C extends Mappable, L, PA
             public Pattern map(Mapping mapping) {
                 return Pattern.from(targetParentElement).ref(mapping.target(), targetLink);
             }
-        }).branches().stream().map(branch -> createContainment(resolvePattern(branch.first()), resolvePattern(branch.last()), filters)).toList();
+        }).branches().stream()
+                .map(branch -> createContainment(
+                        resolvePattern(branch.first()),
+                        resolvePattern(branch.last()),
+                        filters
+                ))
+                .toList();
     }
 
     /**
@@ -195,7 +218,9 @@ public abstract class QueryResolver<V, Q, S, P, RO, F, C extends Mappable, L, PA
                 return targetParent.ref(mapping.target(), targetLink);
             }
         });
-        return resolvedUnion.branches().stream().map(branch -> createLink(resolvePattern(branch.first()), resolvePattern(branch.last()), filters)).toList();
+        return resolvedUnion.branches().stream()
+                .map(branch -> createLink(resolvePattern(branch.first()), resolvePattern(branch.last()), filters))
+                .toList();
     }
 
     abstract C createContainment(PA source, PA target, List<F> filters);

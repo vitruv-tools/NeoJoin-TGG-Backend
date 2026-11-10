@@ -35,7 +35,10 @@ public class ResolvedLink implements RuleGenerator {
         var targetSlice = rule.addTargetSlice(List.of(targetNode), List.of());
         extendSlice(sourceSlice, source);
         extendSlice(targetSlice, target);
-        sourceSlice.addCorrespondence(sourceSlice.findByType(source.bottom()).orElseThrow(), targetSlice.findByType(target.bottom()).orElseThrow());
+        sourceSlice.addCorrespondence(
+            sourceSlice.findByType(source.bottom()).orElseThrow(),
+            targetSlice.findByType(target.bottom()).orElseThrow()
+        );
         for (var filter : filters) {
             filter.extendRule(rule);
         }
@@ -49,7 +52,7 @@ public class ResolvedLink implements RuleGenerator {
 
     @Override
     public String toString() {
-        var f = filters.stream().map(Object::toString).collect(Collectors.joining( ", "));
+        var f = filters.stream().map(Object::toString).collect(Collectors.joining(", "));
         if (!f.isEmpty()) {
             f = " | " + f;
         }

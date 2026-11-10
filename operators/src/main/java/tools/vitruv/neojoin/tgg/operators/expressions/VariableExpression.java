@@ -27,8 +27,12 @@ public class VariableExpression implements ValueExpression {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof VariableExpression other)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof VariableExpression other)) {
+            return false;
+        }
         return Objects.equals(name, other.name);
     }
 

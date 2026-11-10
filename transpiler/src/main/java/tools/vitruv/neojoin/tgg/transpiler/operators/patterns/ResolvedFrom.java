@@ -31,7 +31,9 @@ public class ResolvedFrom implements ResolvedPatternLink {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof ResolvedFrom from)) return false;
+        if (!(o instanceof ResolvedFrom from)) {
+            return false;
+        }
         return Objects.equals(element, from.element);
     }
 

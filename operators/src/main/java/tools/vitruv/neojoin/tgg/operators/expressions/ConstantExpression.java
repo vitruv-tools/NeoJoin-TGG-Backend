@@ -6,9 +6,9 @@ import java.util.Objects;
  * A constant expression
  *
  * <pre>
- * var constant = ConstantExpression.Primitive(5);
+ * var constant = ConstantExpression.createPrimitive(5);
  * constant.value() == "5";
- * var constantString = ConstantExpression.String("Text");
+ * var constantString = ConstantExpression.createString("Text");
  * constantString.value() == "\"Text\"";
  * </pre>
  */
@@ -19,11 +19,11 @@ public class ConstantExpression implements ValueExpression {
         this.value = value;
     }
 
-    public static ConstantExpression String(String value) {
+    public static ConstantExpression createString(String value) {
         return new ConstantExpression("\"" + value + "\"");
     }
 
-    public static <T> ConstantExpression Primitive(T value) {
+    public static <T> ConstantExpression createPrimitive(T value) {
         return new ConstantExpression(value.toString());
     }
 
@@ -33,8 +33,12 @@ public class ConstantExpression implements ValueExpression {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ConstantExpression other)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ConstantExpression other)) {
+            return false;
+        }
         return Objects.equals(value, other.value);
     }
 

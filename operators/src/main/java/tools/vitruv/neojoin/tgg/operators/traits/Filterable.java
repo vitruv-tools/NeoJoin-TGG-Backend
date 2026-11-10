@@ -8,7 +8,9 @@ import tools.vitruv.neojoin.tgg.operators.filters.ConstantFilter;
 
 public interface Filterable<T> {
     FQN defaultFilterTarget();
+
     T filter(Filter filter);
+
     /**
      * Filter element for given property, operator and value
      * φ(element::property operator value)

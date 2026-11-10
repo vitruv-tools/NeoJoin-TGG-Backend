@@ -34,7 +34,8 @@ import java.util.stream.Collectors;
  * contains d := A-[d]->D
  * references e := B-[e]->E
  * </pre>
- * In this example, Metaclasses A and B are joined with C and transformed together to Metaclass A' when A's id is greater than 5.
+ * In this example, Metaclasses A and B are joined with C and transformed together to Metaclass A' when A's id is
+ * greater than 5.
  * The id, as well as all containments of classes D are retained. All weak references from B to E are transformed to
  * weak references from A' to E' (if E is transformed to E' in a separate query).
  * In operator language, we write:
@@ -45,7 +46,7 @@ import java.util.stream.Collectors;
  * <pre>
  * Query.from(fqn("A")).ref(fqn("B"), "b").join(fqn("C"), "id")
  *      .create(fqn("A'")).build()
- *      .filter("id", LogicOperator.MoreThan, ConstantExpression.primitive(5))
+ *      .filter("id", LogicOperator.MoreThan, ConstantExpression.createPrimitive(5))
  *      .project("id")
  *      .contains(fqn("D"), "d")
  *      .references(fqn("E"), "e");
@@ -56,7 +57,8 @@ public record Query(Selection selection,
                     List<ReferenceOperatorChain> referenceOperators,
                     List<Filter> filters,
                     List<Containment> containments,
-                    List<Link> links) implements Filterable<Query>, Projectable<Query>, Containable<Query>, Linkable<Query> {
+                    List<Link> links)
+        implements Filterable<Query>, Projectable<Query>, Containable<Query>, Linkable<Query> {
 
     /**
      * New Query for a Selection
@@ -83,8 +85,16 @@ public record Query(Selection selection,
         return this;
     }
 
-    public Query referenceOperator(String sourceNamespace, FQN targetRoot, FQN targetLeaf, String targetField, ReferenceOperator referenceOperator) {
-        referenceOperators.add(new ReferenceOperatorChain(sourceNamespace, targetRoot, targetLeaf, targetField, referenceOperator));
+    public Query referenceOperator(
+            String sourceNamespace,
+            FQN targetRoot,
+            FQN targetLeaf,
+            String targetField,
+            ReferenceOperator referenceOperator
+    ) {
+        referenceOperators.add(
+            new ReferenceOperatorChain(sourceNamespace, targetRoot, targetLeaf, targetField, referenceOperator)
+        );
         return this;
     }
 

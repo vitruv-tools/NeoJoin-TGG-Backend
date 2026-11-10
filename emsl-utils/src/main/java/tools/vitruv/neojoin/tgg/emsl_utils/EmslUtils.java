@@ -23,7 +23,11 @@ public final class EmslUtils {
             throw new IllegalArgumentException("String to escape cannot be null");
         }
 
-        if (isEmslKeyword(str)) return "^" + str;
+        if (isEmslKeyword(str)) {
+
+            return "^" + str;
+
+        }
 
         return str;
     }
@@ -66,15 +70,25 @@ public final class EmslUtils {
     public static String getUserDefinedValue(
             Map<String, EEnum> metaModelEnum, EAttribute attr, EObject modelElt) {
 
-        if (attr.getEType() == null) return null;
+        if (attr.getEType() == null) {
+
+            return null;
+
+        }
         EEnum eEnum = metaModelEnum.get(attr.getEType().getName());
-        if (eEnum == null) return null;
+        if (eEnum == null) {
+            return null;
+        }
 
         Object raw = modelElt.eGet(attr);
-        if (raw == null) return null;
+        if (raw == null) {
+            return null;
+        }
 
         EEnumLiteral lit = eEnum.getEEnumLiteralByLiteral(raw.toString());
-        if (lit == null) return null;
+        if (lit == null) {
+            return null;
+        }
 
         return escapeKeywords(lit.getName());
     }

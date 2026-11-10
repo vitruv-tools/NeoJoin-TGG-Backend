@@ -6,11 +6,11 @@ import tools.vitruv.neojoin.tgg.operators.selection.Pattern;
 import tools.vitruv.neojoin.tgg.operators.selection.Union;
 
 public interface Containable<T> {
-    T contains(Containment containment);
-
     FQN defaultSourceElement();
 
     FQN defaultTargetElement();
+
+    T contains(Containment containment);
 
     /**
      * Retain all given sources under the given link name for the trailing Metaclass

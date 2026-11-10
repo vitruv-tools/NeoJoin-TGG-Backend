@@ -38,11 +38,15 @@ public class ResolvedDerivedProjection implements ResolvedProjection {
             case FunctionInvocation.ConstrainedArgument(var node1, var attribute) ->
                 (parameter.equals(RETURN_PARAM_KEYWORD) ? rule.allTargetsAsSlice() : rule.allSourcesAsSlice())
                     .findByType(node1)
-                    .orElseThrow(() -> new RuntimeException("Derive projection: node " + node1.fqn() +
-                        (parameter.equals(RETURN_PARAM_KEYWORD) ? " not found in target graph" : " not found in source graph")))
+                    .orElseThrow(() -> new RuntimeException("Derive projection: node " + node1.fqn()
+                        + (parameter.equals(RETURN_PARAM_KEYWORD)
+                            ? " not found in target graph"
+                            : " not found in source graph")))
                     .addVariableAttribute(attribute, LogicOperator.Equals);
             case Object ignored when parameter.equals(RETURN_PARAM_KEYWORD) ->
-                throw new RuntimeException("Derive projection: return attribute must be constrained argument in target graph");
+                throw new RuntimeException(
+                    "Derive projection: return attribute must be constrained argument in target graph"
+                );
             case FunctionInvocation.ConstantArgument(var value) -> new ConstantExpression(value);
         };
     }

@@ -51,8 +51,14 @@ class ViewTest {
         var resolver = new TranspilerQueryResolver();
         var containers = resolver.findContainers(view);
         assertEquals(2, containers.size());
-        assertEquals("Κ(pkg.A-[b]->pkg.B => t.A'-[b]->t.B')", containers.get(new Mapping(pkg("B"), t("B'"))).toString());
-        assertEquals("Κ(pkg.A-[c]->pkg.C => t.A'-[c]->t.C')", containers.get(new Mapping(pkg("C"), t("C'"))).toString());
+        assertEquals(
+            "Κ(pkg.A-[b]->pkg.B => t.A'-[b]->t.B')",
+            containers.get(new Mapping(pkg("B"), t("B'"))).toString()
+        );
+        assertEquals(
+            "Κ(pkg.A-[c]->pkg.C => t.A'-[c]->t.C')",
+            containers.get(new Mapping(pkg("C"), t("C'"))).toString()
+        );
     }
 
     @Test
@@ -61,7 +67,10 @@ class ViewTest {
         var resolver = new TranspilerQueryResolver();
         var containers = resolver.findContainers(view);
         assertEquals(1, containers.size());
-        assertEquals("Κ(pkg.A-[b]->pkg.B-[c]->pkg.C => t.A'-[child]->t.C')", containers.get(new Mapping(pkg("C"), t("C'"))).toString());
+        assertEquals(
+            "Κ(pkg.A-[b]->pkg.B-[c]->pkg.C => t.A'-[child]->t.C')",
+            containers.get(new Mapping(pkg("C"), t("C'"))).toString()
+        );
     }
 
     @Test
@@ -71,7 +80,9 @@ class ViewTest {
         assertEquals(3, queries.size());
         assertTrue(queries.contains("Σ(pkg.A => t.A')"));
         assertTrue(queries.contains("Σ(pkg.B => t.B')Π(pkg.B::id => t.B'::id)Κ(pkg.A-[b]->pkg.B => t.A'-[b]->t.B')"));
-        assertTrue(queries.contains("Σ(pkg.C => t.C')Κ(pkg.A-[c]->pkg.C => t.A'-[c]->t.C')Λ(pkg.C-[b]->pkg.B => t.C'-[b]->t.B')"));
+        assertTrue(queries.contains(
+            "Σ(pkg.C => t.C')Κ(pkg.A-[c]->pkg.C => t.A'-[c]->t.C')Λ(pkg.C-[b]->pkg.B => t.C'-[b]->t.B')"
+        ));
     }
 
     @Test

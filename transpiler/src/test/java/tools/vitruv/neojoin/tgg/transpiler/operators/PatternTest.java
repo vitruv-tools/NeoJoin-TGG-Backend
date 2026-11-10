@@ -12,7 +12,9 @@ import tools.vitruv.neojoin.tgg.transpiler.graph.tgg.TripleRule;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PatternTest {
 
@@ -42,7 +44,8 @@ class PatternTest {
 
     @Test
     void testMultiJoin() {
-        var pattern = Pattern.from(pkg("A")).join(pkg("B"), List.of(new Tuple<>("id", "id"), new Tuple<>("name", "name")));
+        var pattern = Pattern.from(pkg("A"))
+                .join(pkg("B"), List.of(new Tuple<>("id", "id"), new Tuple<>("name", "name")));
         assertEquals("pkg.A ⨝(id==id,name==name) pkg.B", pattern.toString());
         assertEquals("pkg.A", pattern.top().fqn());
         assertEquals("pkg.B", pattern.bottom().fqn());
@@ -71,7 +74,10 @@ class PatternTest {
         var slice = rule.addSourceSlice();
         resolve(pattern).extendSlice(slice);
         assertEquals("[<a: pkg.A;-[child]->b;>, <b: pkg.B;;.id==<id>>, <c: pkg.C;;.id==<id>>]", slice.toString());
-        assertEquals("src: [<a: pkg.A;-[child]->b;>, <b: pkg.B;;.id==<id>>, <c: pkg.C;;.id==<id>>] tgt: [] corr: []", rule.toString());
+        assertEquals(
+            "src: [<a: pkg.A;-[child]->b;>, <b: pkg.B;;.id==<id>>, <c: pkg.C;;.id==<id>>] tgt: [] corr: []",
+            rule.toString()
+        );
     }
 
     @Test

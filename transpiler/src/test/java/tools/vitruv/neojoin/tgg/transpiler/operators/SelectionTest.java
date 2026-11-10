@@ -94,7 +94,11 @@ class SelectionTest {
         ));
         var rule = new TripleRule();
         selection.extendRule(rule);
-        assertEquals("src: [<a: pkg.A;-[b]->b;>, <b: pkg.B;;>] tgt: [<a': t.A';-[b]->b';>, <b': t.B';;>] corr: [a<-->a', a<-->b', b<-->a', b<-->b']", rule.toString());
+        assertEquals(
+            "src: [<a: pkg.A;-[b]->b;>, <b: pkg.B;;>] tgt: [<a': t.A';-[b]->b';>, <b': t.B';;>] corr: [a<-->a', "
+                + "a<-->b', b<-->a', b<-->b']",
+            rule.toString()
+        );
     }
 
     @Test
@@ -105,7 +109,11 @@ class SelectionTest {
         ));
         var rule = new TripleRule();
         selection.extendRule(rule);
-        assertEquals("src: [<a: pkg.A;-[c]->c;>, <c: pkg.C;-[b]->b;>, <b: pkg.B;;>] tgt: [<a': t.A';-[b]->b';>, <b': t.B';;>] corr: [a<-->a', a<-->b', b<-->a', c<-->a', b<-->b', c<-->b']", rule.toString());
+        assertEquals(
+            "src: [<a: pkg.A;-[c]->c;>, <c: pkg.C;-[b]->b;>, <b: pkg.B;;>] tgt: [<a': t.A';-[b]->b';>, <b': t.B';;>] "
+                + "corr: [a<-->a', a<-->b', b<-->a', c<-->a', b<-->b', c<-->b']",
+            rule.toString()
+        );
     }
 
     @Test
@@ -116,7 +124,11 @@ class SelectionTest {
         ));
         var rule = new TripleRule();
         selection.extendRule(rule);
-        assertEquals("src: [<a: pkg.A;;.id==<id>>, <b: pkg.B;;.id==<id>>, <c: pkg.C;;.id==<id>>] tgt: [<a': t.A';;>] corr: [a<-->a', b<-->a', c<-->a']", rule.toString());
+        assertEquals(
+            "src: [<a: pkg.A;;.id==<id>>, <b: pkg.B;;.id==<id>>, <c: pkg.C;;.id==<id>>] tgt: [<a': t.A';;>] corr: "
+                + "[a<-->a', b<-->a', c<-->a']",
+            rule.toString()
+        );
     }
 
 }

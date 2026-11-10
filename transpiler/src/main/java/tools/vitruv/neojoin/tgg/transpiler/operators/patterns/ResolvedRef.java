@@ -19,7 +19,7 @@ public class ResolvedRef implements ResolvedPatternLink {
     @Override
     public TGGNode extendSlice(TGGSlice slice, TGGNode lastNode) {
         final TGGNode node = slice.findByType(element).orElseGet(() -> slice.addNode(element));
-        lastNode.addLink(TGGLink.Black(reference, node));
+        lastNode.addLink(TGGLink.createBlack(reference, node));
         return node;
     }
 
@@ -35,7 +35,9 @@ public class ResolvedRef implements ResolvedPatternLink {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof ResolvedRef ref)) return false;
+        if (!(o instanceof ResolvedRef ref)) {
+            return false;
+        }
         return Objects.equals(element, ref.element) && Objects.equals(reference, ref.reference);
     }
 

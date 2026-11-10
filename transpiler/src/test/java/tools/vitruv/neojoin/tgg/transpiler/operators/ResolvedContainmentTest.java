@@ -28,16 +28,20 @@ class ResolvedContainmentTest {
 
     @Test
     void toRule() {
-        var source = resolve(Pattern.from(pkg("A")).ref(pkg("B"), "b"));
-        var target = resolve(Pattern.from(t("A'")).ref(t("B'"), "b"));
-        var container = new ResolvedContainment(source, target, List.of());
         var rule = new TripleRule();
         rule.addSourceSlice().addNode(pkg("B")).makeGreen();
         rule.addTargetSlice().addNode(t("B'")).makeGreen();
         assertEquals("src: [<++b: pkg.B;;>] tgt: [<++b': t.B';;>] corr: []", rule.toString());
+        var source = resolve(Pattern.from(pkg("A")).ref(pkg("B"), "b"));
+        var target = resolve(Pattern.from(t("A'")).ref(t("B'"), "b"));
+        var container = new ResolvedContainment(source, target, List.of());
         container.extendRule(rule);
         System.out.println(rule);
-        assertEquals("src: [<++b: pkg.B;;>, <a: pkg.A;++-[b]->b;>] tgt: [<++b': t.B';;>, <a': t.A';++-[b]->b';>] corr: [a<-->a']", rule.toString());
+        assertEquals(
+            "src: [<++b: pkg.B;;>, <a: pkg.A;++-[b]->b;>] tgt: [<++b': t.B';;>, <a': t.A';++-[b]->b';>] corr: "
+                + "[a<-->a']",
+            rule.toString()
+        );
     }
 
 }

@@ -29,30 +29,44 @@ class ConstantFilterTest {
     @Test
     void filterToRule() {
         var view = new View();
-        view.addQuery(Query.from(pkg("A")).create(t("A'")).build().filter(pkg("A"), "id", LogicOperator.Equals, ConstantExpression.String("foo")));
+        view.addQuery(Query.from(pkg("A")).create(t("A'")).build()
+                .filter(pkg("A"), "id", LogicOperator.Equals, ConstantExpression.createString("foo")));
         var queries = resolve(view);
         assertEquals(1, queries.size());
         var query = queries.get(0);
-        assertEquals("[src: [<++a: pkg.A;;.id==\"foo\">] tgt: [<++a': t.A';;>] corr: [++a<-->a']]", query.getGeneratedRules().toString());
+        assertEquals(
+            "[src: [<++a: pkg.A;;.id==\"foo\">] tgt: [<++a': t.A';;>] corr: [++a<-->a']]",
+            query.getGeneratedRules().toString()
+        );
     }
 
     @Test
     void multiNodeFilterToRule() {
         var view = new View();
-        view.addQuery(Query.from(pkg("A")).ref(pkg("B"), "b").create(t("A'")).build().filter(pkg("A"), "id", LogicOperator.Equals, ConstantExpression.String("foo")));
+        view.addQuery(Query.from(pkg("A")).ref(pkg("B"), "b").create(t("A'")).build()
+                .filter(pkg("A"), "id", LogicOperator.Equals, ConstantExpression.createString("foo")));
         var queries = resolve(view);
         assertEquals(1, queries.size());
         var query = queries.get(0);
-        assertEquals("[src: [<++a: pkg.A;++-[b]->b;.id==\"foo\">, <++b: pkg.B;;>] tgt: [<++a': t.A';;>] corr: [++a<-->a', ++b<-->a']]", query.getGeneratedRules().toString());
+        assertEquals(
+            "[src: [<++a: pkg.A;++-[b]->b;.id==\"foo\">, <++b: pkg.B;;>] tgt: [<++a': t.A';;>] corr: [++a<-->a', "
+                + "++b<-->a']]",
+            query.getGeneratedRules().toString()
+        );
     }
 
     @Test
     void multiNodeFilterToRuleAlt() {
         var view = new View();
-        view.addQuery(Query.from(pkg("A")).ref(pkg("B"), "b").create(t("A'")).build().filter(pkg("B"), "id", LogicOperator.Equals, ConstantExpression.String("foo")));
+        view.addQuery(Query.from(pkg("A")).ref(pkg("B"), "b").create(t("A'")).build()
+                .filter(pkg("B"), "id", LogicOperator.Equals, ConstantExpression.createString("foo")));
         var queries = resolve(view);
         assertEquals(1, queries.size());
         var query = queries.get(0);
-        assertEquals("[src: [<++a: pkg.A;++-[b]->b;>, <++b: pkg.B;;.id==\"foo\">] tgt: [<++a': t.A';;>] corr: [++a<-->a', ++b<-->a']]", query.getGeneratedRules().toString());
+        assertEquals(
+            "[src: [<++a: pkg.A;++-[b]->b;>, <++b: pkg.B;;.id==\"foo\">] tgt: [<++a': t.A';;>] corr: [++a<-->a', "
+                + "++b<-->a']]",
+            query.getGeneratedRules().toString()
+        );
     }
 }

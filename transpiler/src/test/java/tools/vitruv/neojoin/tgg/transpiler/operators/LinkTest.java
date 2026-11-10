@@ -1,7 +1,11 @@
 package tools.vitruv.neojoin.tgg.transpiler.operators;
 
 import org.junit.jupiter.api.Test;
-import tools.vitruv.neojoin.tgg.operators.*;
+import tools.vitruv.neojoin.tgg.operators.FQN;
+import tools.vitruv.neojoin.tgg.operators.Link;
+import tools.vitruv.neojoin.tgg.operators.LogicOperator;
+import tools.vitruv.neojoin.tgg.operators.Query;
+import tools.vitruv.neojoin.tgg.operators.View;
 import tools.vitruv.neojoin.tgg.transpiler.TranspilerQueryResolver;
 import tools.vitruv.neojoin.tgg.operators.expressions.ConstantExpression;
 import tools.vitruv.neojoin.tgg.operators.selection.Pattern;
@@ -30,29 +34,44 @@ class LinkTest {
         var view = new View();
         view.addQuery(Query.from(pkg("A")).create(t("A'")).build().references(link));
         view.addQuery(Query.from(pkg("C")).create(t("C'")).build());
-        assertEquals("[src: [<++a: pkg.A;;>] tgt: [<++a': t.A';;>] corr: [++a<-->a'], src: [<a: pkg.A;++-[c]->c;>, <c: pkg.C;;>] tgt: [<a': t.A';++-[b]->b';>, <++b': t.B';++-[c]->c';>, <c': t.C';;>] corr: [a<-->a', c<-->c']]", resolve(view).get(0).getGeneratedRules().toString());
+        assertEquals(
+            "[src: [<++a: pkg.A;;>] tgt: [<++a': t.A';;>] corr: [++a<-->a'], src: [<a: pkg.A;++-[c]->c;>, <c: "
+                + "pkg.C;;>] tgt: [<a': t.A';++-[b]->b';>, <++b': t.B';++-[c]->c';>, <c': t.C';;>] corr: [a<-->a', "
+                + "c<-->c']]",
+            resolve(view).get(0).getGeneratedRules().toString()
+        );
     }
 
     @Test
     public void filteredLink() {
         var link = new Link(Pattern.from(pkg("A")).ref(pkg("C"), "c"), Pattern.from(t("A'")).ref(t("B'"), "b"), "c");
-        link = link.filter(pkg("C"), "id", LogicOperator.Equals, ConstantExpression.String("foo"));
+        link = link.filter(pkg("C"), "id", LogicOperator.Equals, ConstantExpression.createString("foo"));
         assertEquals("λ(pkg.A-[c]->pkg.C => t.A'-[b]->t.B'-[c]->? | φ(pkg.C::id==\"foo\"))", link.toString());
         var view = new View();
         view.addQuery(Query.from(pkg("A")).create(t("A'")).build().references(link));
         view.addQuery(Query.from(pkg("C")).create(t("C'")).build());
-        assertEquals("[src: [<++a: pkg.A;;>] tgt: [<++a': t.A';;>] corr: [++a<-->a'], src: [<a: pkg.A;++-[c]->c;>, <c: pkg.C;;.id==\"foo\">] tgt: [<a': t.A';++-[b]->b';>, <++b': t.B';++-[c]->c';>, <c': t.C';;>] corr: [a<-->a', c<-->c']]", resolve(view).get(0).getGeneratedRules().toString());
+        assertEquals(
+            "[src: [<++a: pkg.A;;>] tgt: [<++a': t.A';;>] corr: [++a<-->a'], src: [<a: pkg.A;++-[c]->c;>, <c: "
+                + "pkg.C;;.id==\"foo\">] tgt: [<a': t.A';++-[b]->b';>, <++b': t.B';++-[c]->c';>, <c': t.C';;>] corr: "
+                + "[a<-->a', c<-->c']]",
+            resolve(view).get(0).getGeneratedRules().toString()
+        );
     }
 
     @Test
     public void simpleFilteredLink() {
         var link = new Link(Pattern.from(pkg("A")).ref(pkg("C"), "c"), Pattern.from(t("A'")).ref(t("B'"), "b"), "c");
-        link = link.filter("id", ConstantExpression.String("foo"));
+        link = link.filter("id", ConstantExpression.createString("foo"));
         assertEquals("λ(pkg.A-[c]->pkg.C => t.A'-[b]->t.B'-[c]->? | φ(pkg.C::id==\"foo\"))", link.toString());
         var view = new View();
         view.addQuery(Query.from(pkg("A")).create(t("A'")).build().references(link));
         view.addQuery(Query.from(pkg("C")).create(t("C'")).build());
-        assertEquals("[src: [<++a: pkg.A;;>] tgt: [<++a': t.A';;>] corr: [++a<-->a'], src: [<a: pkg.A;++-[c]->c;>, <c: pkg.C;;.id==\"foo\">] tgt: [<a': t.A';++-[b]->b';>, <++b': t.B';++-[c]->c';>, <c': t.C';;>] corr: [a<-->a', c<-->c']]", resolve(view).get(0).getGeneratedRules().toString());
+        assertEquals(
+            "[src: [<++a: pkg.A;;>] tgt: [<++a': t.A';;>] corr: [++a<-->a'], src: [<a: pkg.A;++-[c]->c;>, <c: "
+                + "pkg.C;;.id==\"foo\">] tgt: [<a': t.A';++-[b]->b';>, <++b': t.B';++-[c]->c';>, <c': t.C';;>] corr: "
+                + "[a<-->a', c<-->c']]",
+            resolve(view).get(0).getGeneratedRules().toString()
+        );
     }
 
 }

@@ -36,7 +36,7 @@ public class ResolvedCollectReferences implements ResolvedReferenceOperator {
         final TGGSlice targetSlice = latestRule.addTargetSlice();
         TGGNode targetChildNode = targetSlice.addNode(targetLeaf);
 
-        TGGLink targetParentLinkToChild = TGGLink.Green(targetField, targetChildNode);
+        TGGLink targetParentLinkToChild = TGGLink.createGreen(targetField, targetChildNode);
         targetSourceNode.addLink(targetParentLinkToChild);
 
         latestRule.addCorrespondenceRule(lastSourceNode, targetChildNode);

@@ -51,7 +51,11 @@ import java.util.stream.Collectors;
  * over the axes and link all wheels to the car directly.
  * In code, we need to construct this link explicitly:
  * <pre>
- * var link = new Link(Pattern.from(fqn("Car")).ref(fqn("Axis"), "axes").ref(fqn("Wheel"), "wheels"), fqn("Car"), "wheels");
+ * var link = new Link(
+ *     Pattern.from(fqn("Car")).ref(fqn("Axis"), "axes").ref(fqn("Wheel"), "wheels"),
+ *     fqn("Car"),
+ *     "wheels"
+ * );
  * </pre>
  * <h2>Create target elements</h2>
  * For some queries, it might be necessary to create a target element for a simple reference. Think about elements that
@@ -66,7 +70,8 @@ import java.util.stream.Collectors;
  * Sometimes, different elements are referenced by the same reference. This happens, because triple graphs grammars do
  * not care about inheritance. Let's assume, we have an abstract class B with two subclasses B' and B". A class A can
  * have a reference b to superclass B. Therefore, this reference can point to objects of type B' or B". If we transform
- * B' and B" differently (and therefore cannot simply transform their superclass), we cannot write `λ(-[b]->B => -[b]->?).
+ * B' and B" differently (and therefore cannot simply transform their superclass), we cannot write `λ(-[b]->B =>
+ * -[b]->?).
  * For this case, we can use unions. With unions, we can link to elements with different types (that /usually/ share
  * a supertype; but that is not a requirement). We can therefore write the following link operation:
  * <pre>

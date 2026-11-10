@@ -3,7 +3,11 @@ package tools.vitruv.neojoin.tgg.operators.selection;
 import tools.vitruv.neojoin.tgg.operators.Tuple;
 import tools.vitruv.neojoin.tgg.operators.Mapping;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Union {
@@ -52,7 +56,7 @@ public class Union {
 
     @Override
     public String toString() {
-        return branches.stream().map(Object::toString).collect(Collectors.joining( " UNION "));
+        return branches.stream().map(Object::toString).collect(Collectors.joining(" UNION "));
     }
 
     public interface Resolver {

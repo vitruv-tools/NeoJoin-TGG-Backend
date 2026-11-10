@@ -168,7 +168,7 @@ class ResolvedCollectionMemberFeatureCallTest extends AbstractTripleGraphGrammar
                         NameRepositoryFixtures.someNameRepository(),
                         new ArrayList<>(
                                 List.of(
-                                        TGGLink.Green(
+                                        TGGLink.createGreen(
                                                 "someOtherSourceLinkFromParentToChild",
                                                 anotherSourceChildNode))),
                         new LinkedHashSet<>());
@@ -183,7 +183,7 @@ class ResolvedCollectionMemberFeatureCallTest extends AbstractTripleGraphGrammar
                         new LinkedHashSet<>());
 
         final Correspondence anotherRuleCorrespondence =
-                Correspondence.Green(anotherSourceParentNode, anotherTargetNode);
+                Correspondence.createGreen(anotherSourceParentNode, anotherTargetNode);
 
         return TripleRuleFixtures.someTripleRule(
                 new ArrayList<>(List.of(anotherSourceChildNode, anotherSourceParentNode)),

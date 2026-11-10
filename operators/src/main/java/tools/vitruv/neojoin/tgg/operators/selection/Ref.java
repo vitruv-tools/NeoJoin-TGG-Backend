@@ -29,7 +29,9 @@ public class Ref implements PatternLink {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Ref ref)) return false;
+        if (!(o instanceof Ref ref)) {
+            return false;
+        }
         return Objects.equals(element, ref.element) && Objects.equals(reference, ref.reference);
     }
 

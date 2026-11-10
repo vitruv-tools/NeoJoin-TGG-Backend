@@ -59,14 +59,16 @@ import java.util.Set;
  * query.project(new SimpleProjection(Pattern.from(fqn("A")), fqn("A'"), "name", "othername"));
  * </pre>
  * <h2>Transforming strongly connected elements together</h2>
- * Sometimes, we need to transform strongly connected elements as one element. In this case, we can use reference patterns:
+ * Sometimes, we need to transform strongly connected elements as one element. In this case, we can use reference
+ * patterns:
  * <pre>
  * σ(A-[a]->B => A')
  * </pre>
  * This transforms only elements A that have a reference b to an element B into a single element A'. This possibility is
  * primarily used internally, when resolving interdependent queries. However, some complex queries may use this as well.
  * Keep in mind, that each element is only transformed once. Therefore, an element A must have exactly one reference to
- * an object B. Without any reference, an element A is not transformed. With multiple references to B, only one reference
+ * an object B. Without any reference, an element A is not transformed. With multiple references to B, only one
+ * reference
  * (and therefore only one element B) is transformed.
  * You can use reference patterns, if you need to get attributes from referenced elements. E.g.:
  * <pre>

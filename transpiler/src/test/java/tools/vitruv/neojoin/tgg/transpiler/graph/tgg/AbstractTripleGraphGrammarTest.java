@@ -41,7 +41,7 @@ public abstract class AbstractTripleGraphGrammarTest {
                         new FQN(SOURCE_METAMODEL_NAME, SOURCE_PARENT_LOCAL_NAME),
                         true,
                         NameRepositoryFixtures.someNameRepository(),
-                        new ArrayList<>(List.of(TGGLink.Green(SOURCE_LINK_NAME, sourceChildNode))),
+                        new ArrayList<>(List.of(TGGLink.createGreen(SOURCE_LINK_NAME, sourceChildNode))),
                         new LinkedHashSet<>());
 
         final TGGNode targetNode =
@@ -54,7 +54,7 @@ public abstract class AbstractTripleGraphGrammarTest {
                         new LinkedHashSet<>());
 
         final Correspondence someRuleCorrespondence =
-                Correspondence.Green(sourceParentNode, targetNode);
+                Correspondence.createGreen(sourceParentNode, targetNode);
 
         return TripleRuleFixtures.someTripleRule(
                 new ArrayList<>(List.of(sourceChildNode, sourceParentNode)),

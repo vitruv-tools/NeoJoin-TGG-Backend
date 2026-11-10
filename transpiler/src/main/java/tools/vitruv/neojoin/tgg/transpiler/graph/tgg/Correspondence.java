@@ -23,11 +23,11 @@ public class Correspondence {
         return green;
     }
 
-    public static Correspondence Green(TGGNode source, TGGNode target) {
+    public static Correspondence createGreen(TGGNode source, TGGNode target) {
         return new Correspondence(source, target, true);
     }
 
-    public static Correspondence Black(TGGNode source, TGGNode target) {
+    public static Correspondence createBlack(TGGNode source, TGGNode target) {
         return new Correspondence(source, target, false);
     }
 

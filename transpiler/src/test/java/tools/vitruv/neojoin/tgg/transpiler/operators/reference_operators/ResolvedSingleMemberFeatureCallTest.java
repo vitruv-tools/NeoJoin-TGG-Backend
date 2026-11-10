@@ -154,7 +154,7 @@ class ResolvedSingleMemberFeatureCallTest extends AbstractTripleGraphGrammarTest
                         NameRepositoryFixtures.someNameRepository(),
                         new ArrayList<>(
                                 List.of(
-                                        TGGLink.Green(
+                                        TGGLink.createGreen(
                                                 "someOtherSourceLinkFromParentToChild",
                                                 anotherSourceChildNode))),
                         new LinkedHashSet<>());
@@ -169,7 +169,7 @@ class ResolvedSingleMemberFeatureCallTest extends AbstractTripleGraphGrammarTest
                         new LinkedHashSet<>());
 
         final Correspondence anotherRuleCorrespondence =
-                Correspondence.Black(anotherSourceParentNode, anotherTargetNode);
+                Correspondence.createBlack(anotherSourceParentNode, anotherTargetNode);
 
         return TripleRuleFixtures.someTripleRule(
                 new ArrayList<>(List.of(anotherSourceChildNode, anotherSourceParentNode)),

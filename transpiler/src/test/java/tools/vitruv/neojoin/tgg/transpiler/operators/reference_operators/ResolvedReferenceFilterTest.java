@@ -33,35 +33,35 @@ class ResolvedReferenceFilterTest extends AbstractTripleGraphGrammarTest {
                 Arguments.of(
                         "someIntField",
                         LogicOperator.Equals,
-                        ConstantExpression.Primitive(123),
+                        ConstantExpression.createPrimitive(123),
                         new Attribute(
                                 "someIntField",
                                 LogicOperator.Equals,
-                                ConstantExpression.Primitive(123))),
+                                ConstantExpression.createPrimitive(123))),
                 Arguments.of(
                         "someString",
                         LogicOperator.NotEquals,
-                        ConstantExpression.String("SomeNotEqualsValue"),
+                        ConstantExpression.createString("SomeNotEqualsValue"),
                         new Attribute(
                                 "someString",
                                 LogicOperator.NotEquals,
-                                ConstantExpression.String("SomeNotEqualsValue"))),
+                                ConstantExpression.createString("SomeNotEqualsValue"))),
                 Arguments.of(
                         "someFloatField",
                         LogicOperator.LessEquals,
-                        ConstantExpression.Primitive(0.3F),
+                        ConstantExpression.createPrimitive(0.3F),
                         new Attribute(
                                 "someFloatField",
                                 LogicOperator.LessEquals,
-                                ConstantExpression.Primitive(0.3F))),
+                                ConstantExpression.createPrimitive(0.3F))),
                 Arguments.of(
                         "double",
                         LogicOperator.MoreThan,
-                        ConstantExpression.Primitive(19.4D),
+                        ConstantExpression.createPrimitive(19.4D),
                         new Attribute(
                                 "double",
                                 LogicOperator.MoreThan,
-                                ConstantExpression.Primitive(19.4D))));
+                                ConstantExpression.createPrimitive(19.4D))));
     }
 
     @ParameterizedTest
@@ -118,7 +118,7 @@ class ResolvedReferenceFilterTest extends AbstractTripleGraphGrammarTest {
                         new Attribute(
                                 "someSourceChildAttribute",
                                 LogicOperator.Equals,
-                                ConstantExpression.String("EqualsThis")),
+                                ConstantExpression.createString("EqualsThis")),
                         expectedAttribute);
 
         final TGGNode sourceParentNode =
@@ -148,7 +148,7 @@ class ResolvedReferenceFilterTest extends AbstractTripleGraphGrammarTest {
                         new Attribute(
                                 "someSourceParentAttribute",
                                 LogicOperator.LessThan,
-                                ConstantExpression.Primitive(37)));
+                                ConstantExpression.createPrimitive(37)));
 
         // Assert target nodes
         assertThat(extendedRule.allTargetsAsSlice().nodes()).hasSize(1);
@@ -185,7 +185,7 @@ class ResolvedReferenceFilterTest extends AbstractTripleGraphGrammarTest {
                                         new Attribute(
                                                 "someSourceChildAttribute",
                                                 LogicOperator.Equals,
-                                                ConstantExpression.String("EqualsThis")))));
+                                                ConstantExpression.createString("EqualsThis")))));
         final TGGNode anotherSourceParentNode =
                 TGGNodeFixtures.someTGGNode(
                         "SomeOtherParentSourceNode",
@@ -194,7 +194,7 @@ class ResolvedReferenceFilterTest extends AbstractTripleGraphGrammarTest {
                         NameRepositoryFixtures.someNameRepository(),
                         new ArrayList<>(
                                 List.of(
-                                        TGGLink.Green(
+                                        TGGLink.createGreen(
                                                 "someOtherSourceLinkFromParentToChild",
                                                 anotherSourceChildNode))),
                         new LinkedHashSet<>(
@@ -202,7 +202,7 @@ class ResolvedReferenceFilterTest extends AbstractTripleGraphGrammarTest {
                                         new Attribute(
                                                 "someSourceParentAttribute",
                                                 LogicOperator.LessThan,
-                                                ConstantExpression.Primitive(37)))));
+                                                ConstantExpression.createPrimitive(37)))));
 
         final TGGNode anotherTargetNode =
                 TGGNodeFixtures.someTGGNode(
@@ -214,7 +214,7 @@ class ResolvedReferenceFilterTest extends AbstractTripleGraphGrammarTest {
                         new LinkedHashSet<>());
 
         final Correspondence anotherRuleCorrespondence =
-                Correspondence.Black(anotherSourceParentNode, anotherTargetNode);
+                Correspondence.createBlack(anotherSourceParentNode, anotherTargetNode);
 
         return TripleRuleFixtures.someTripleRule(
                 new ArrayList<>(List.of(anotherSourceChildNode, anotherSourceParentNode)),
