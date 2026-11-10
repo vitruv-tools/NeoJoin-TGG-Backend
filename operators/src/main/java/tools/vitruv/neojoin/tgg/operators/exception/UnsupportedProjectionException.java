@@ -1,6 +1,6 @@
 package tools.vitruv.neojoin.tgg.operators.exception;
 
-import tools.vitruv.neojoin.aqr.AQRFeature;
+import tools.vitruv.neojoin.model.AQRFeature;
 
 public class UnsupportedProjectionException extends RuntimeException {
     public UnsupportedProjectionException(AQRFeature feature) {
