@@ -13,11 +13,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import tools.vitruv.neojoin.NeoJoinStandaloneSetup;
 import tools.vitruv.neojoin.Parser;
-import tools.vitruv.neojoin.aqr.AQR;
 import tools.vitruv.neojoin.collector.PackageModelCollector;
 import tools.vitruv.neojoin.expression_parser.parser.exception.UnsupportedReferenceExpressionException;
 import tools.vitruv.neojoin.expression_parser.parser.strategy.manual_pattern_matching.ManualPatternMatchingStrategy;
 import tools.vitruv.neojoin.generation.MetaModelGenerator;
+import tools.vitruv.neojoin.model.AQR;
 import tools.vitruv.neojoin.tgg.emsl_parser.EmslParser;
 import tools.vitruv.neojoin.tgg.emsl_utils.EmslMetamodelGenerator;
 import tools.vitruv.neojoin.tgg.operators.View;
