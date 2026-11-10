@@ -27,6 +27,7 @@ public class ResolvedSelection implements RuleGenerator {
      * <pre>
      * { (A,A'), (A,B'), (B,A'), (B,B'), (C,A'), (C,B') }
      * </pre>
+     *
      * @return set of mappings
      */
     public Set<Mapping> mappings() {

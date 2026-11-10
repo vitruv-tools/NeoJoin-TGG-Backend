@@ -21,7 +21,9 @@ public class Tuple<F, L> {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Tuple<?, ?> tuple)) return false;
+        if (!(o instanceof Tuple<?, ?> tuple)) {
+            return false;
+        }
         return Objects.equals(first, tuple.first) && Objects.equals(last, tuple.last);
     }
 

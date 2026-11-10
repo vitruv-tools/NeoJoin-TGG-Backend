@@ -37,7 +37,9 @@ public class FQN {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof FQN fqn)) return false;
+        if (!(o instanceof FQN fqn)) {
+            return false;
+        }
         return Objects.equals(metamodelName, fqn.metamodelName) && Objects.equals(localName, fqn.localName);
     }
 

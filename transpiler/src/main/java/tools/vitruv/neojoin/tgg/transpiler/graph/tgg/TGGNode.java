@@ -37,11 +37,11 @@ public class TGGNode extends AbstractGraphNode<TGGLink, TGGNode> {
                 id, type, green, nameRepository, new ArrayList<>(), new LinkedHashSet<>());
     }
 
-    public static TGGNode Black(String id, FQN type, NameRepository nameRepository) {
+    public static TGGNode createBlack(String id, FQN type, NameRepository nameRepository) {
         return create(id, type, false, nameRepository);
     }
 
-    public static TGGNode Green(String id, FQN type, NameRepository nameRepository) {
+    public static TGGNode createGreen(String id, FQN type, NameRepository nameRepository) {
         return create(id, type, true, nameRepository);
     }
 

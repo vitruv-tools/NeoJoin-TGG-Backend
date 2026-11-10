@@ -6,7 +6,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ConstraintSolver {
 
@@ -49,7 +53,11 @@ public class ConstraintSolver {
     }
 
     public void copyFile(Path destinationDirectory) throws IOException {
-        Files.copy(this.file, destinationDirectory.resolve(this.className + ".java"), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(
+            this.file,
+            destinationDirectory.resolve(this.className + ".java"),
+            StandardCopyOption.REPLACE_EXISTING
+        );
     }
 
     public String name() {
@@ -120,7 +128,11 @@ public class ConstraintSolver {
 
     private static ConstraintSolver constraintSolverFromClass(String name, String className) {
         var classLoader = ConstraintSolver.class.getClassLoader();
-        return new ConstraintSolver(name, className, classLoader.getResource(RESOURCE_PATH_TO_CONSTRAINT.formatted(className)));
+        return new ConstraintSolver(
+            name,
+            className,
+            classLoader.getResource(RESOURCE_PATH_TO_CONSTRAINT.formatted(className))
+        );
     }
 }
 

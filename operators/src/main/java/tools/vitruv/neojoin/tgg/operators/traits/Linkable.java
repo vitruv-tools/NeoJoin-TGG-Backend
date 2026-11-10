@@ -6,11 +6,11 @@ import tools.vitruv.neojoin.tgg.operators.selection.Pattern;
 import tools.vitruv.neojoin.tgg.operators.selection.Union;
 
 public interface Linkable<T> {
-    T references(Link link);
-
     FQN defaultSourceElement();
 
     FQN defaultTargetElement();
+
+    T references(Link link);
 
     /**
      * Retain all given sources under the given link name for the trailing Metaclass

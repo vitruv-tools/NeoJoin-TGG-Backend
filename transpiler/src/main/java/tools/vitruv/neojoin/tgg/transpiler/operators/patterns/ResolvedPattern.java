@@ -63,7 +63,9 @@ public class ResolvedPattern {
     }
 
     public boolean startsWith(ResolvedPattern other) {
-        if (this.links.size() < other.links.size()) return false;
+        if (this.links.size() < other.links.size()) {
+            return false;
+        }
         for (var i = 0; i < other.links.size(); ++i) {
             if (!this.links.get(i).equals(other.links.get(i))) {
                 return false;
@@ -80,7 +82,9 @@ public class ResolvedPattern {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof ResolvedPattern pattern)) return false;
+        if (!(o instanceof ResolvedPattern pattern)) {
+            return false;
+        }
         return Objects.equals(links, pattern.links);
     }
 

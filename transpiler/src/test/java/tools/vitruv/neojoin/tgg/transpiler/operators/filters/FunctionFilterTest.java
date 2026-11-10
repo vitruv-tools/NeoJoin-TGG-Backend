@@ -30,7 +30,7 @@ class FunctionFilterTest {
     void createFunctionFilter() {
         var filter = new FunctionFilter("startsWith");
         filter.setConstrainedArgument("self", pkg("A"), "name");
-        filter.setConstantArgument("prefix", ConstantExpression.String("foo"));
+        filter.setConstantArgument("prefix", ConstantExpression.createString("foo"));
         assertEquals("φ(pkg.A::name->startsWith(prefix: \"foo\"))", filter.toString());
     }
 
@@ -38,13 +38,17 @@ class FunctionFilterTest {
     void functionFilterToRule() {
         var filter = new FunctionFilter("startsWith");
         filter.setConstrainedArgument("self", pkg("A"), "name");
-        filter.setConstantArgument("prefix", ConstantExpression.String("foo"));
+        filter.setConstantArgument("prefix", ConstantExpression.createString("foo"));
         var view = new View();
         view.addQuery(Query.from(pkg("A")).create(t("A'")).build().filter(filter));
         var queries = resolve(view);
         assertEquals(1, queries.size());
         var query = queries.get(0);
-        assertEquals("[src: [<++a: pkg.A;;.name==<name>>] tgt: [<++a': t.A';;>] corr: [++a<-->a'] cs: [startsWith(prefix: \"foo\",self: <name>)]]", query.getGeneratedRules().toString());
+        assertEquals(
+            "[src: [<++a: pkg.A;;.name==<name>>] tgt: [<++a': t.A';;>] corr: [++a<-->a'] cs: [startsWith(prefix: "
+                + "\"foo\",self: <name>)]]",
+            query.getGeneratedRules().toString()
+        );
     }
 
     @Test
@@ -59,6 +63,11 @@ class FunctionFilterTest {
         var queries = resolve(view);
         assertEquals(1, queries.size());
         var query = queries.get(0);
-        assertEquals("[src: [<++a: pkg.A;++-[b]->b;.name==<name>>, <++b: pkg.B;;.prename==<prename>,.surname==<surname>>] tgt: [<++a': t.A';;>] corr: [++a<-->a', ++b<-->a'] cs: [concatWith(self: <prename>,text: <surname>,return: <name>)]]", query.getGeneratedRules().toString());
+        assertEquals(
+            "[src: [<++a: pkg.A;++-[b]->b;.name==<name>>, <++b: pkg.B;;.prename==<prename>,.surname==<surname>>] "
+                + "tgt: [<++a': t.A';;>] corr: [++a<-->a', ++b<-->a'] cs: [concatWith(self: <prename>,text: "
+                + "<surname>,return: <name>)]]",
+            query.getGeneratedRules().toString()
+        );
     }
 }

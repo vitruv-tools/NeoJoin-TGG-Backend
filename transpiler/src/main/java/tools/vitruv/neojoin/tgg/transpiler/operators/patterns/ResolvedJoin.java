@@ -39,14 +39,19 @@ public class ResolvedJoin implements ResolvedPatternLink {
 
     @Override
     public String toString() {
-        var conditions = constrainedProperties.stream().map(props -> props.first() + "==" + props.last()).collect(Collectors.joining(","));
+        var conditions = constrainedProperties.stream()
+                .map(props -> props.first() + "==" + props.last())
+                .collect(Collectors.joining(","));
         return " ⨝(" + conditions + ") " + element.fqn();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof ResolvedJoin join)) return false;
-        return Objects.equals(element, join.element) && Objects.equals(constrainedProperties, join.constrainedProperties);
+        if (!(o instanceof ResolvedJoin join)) {
+            return false;
+        }
+        return Objects.equals(element, join.element)
+                && Objects.equals(constrainedProperties, join.constrainedProperties);
     }
 
     @Override

@@ -35,12 +35,12 @@ public class TargetSelectionBuilder {
         return new TargetSelectionBuilder(source, pattern.join(element, property));
     }
 
-    public TargetSelectionBuilder ref(FQN element, String reference) {
-        return new TargetSelectionBuilder(source, pattern.ref(element, reference));
-    }
-
     public TargetSelectionBuilder join(FQN element, FunctionInvocation functionInvocation) {
         return new TargetSelectionBuilder(source, pattern.join(element, functionInvocation));
+    }
+
+    public TargetSelectionBuilder ref(FQN element, String reference) {
+        return new TargetSelectionBuilder(source, pattern.ref(element, reference));
     }
 
     public Query build() {

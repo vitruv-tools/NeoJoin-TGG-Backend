@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
  * <pre>
  * κ(A-[b]->B => A'-[b]->?)
  * </pre>
- * This keeps all children b of A and maps them as b in A'. We note ? because we do not know to what type B is transformed.
+ * This keeps all children b of A and maps them as b in A'. We note ? because we do not know to what type B is
+ * transformed.
  * Without a separate query that maps B to something, this operator does nothing. This containment operator can only be
  * used in queries that selected an element A previously:
  * <pre>
@@ -43,7 +44,8 @@ import java.util.stream.Collectors;
  * Sometimes, different elements are contained by the same containment. This happens, because triple graph grammars do
  * not care about inheritance. Let's assume, we have an abstract class B with two subclasses B' and B". A class A can
  * have children b of superclass B. Therefore, this containment can contain objects of type B' or B". If we transform
- * B' and B" differently (and therefore cannot simply transform their superclass), we cannot write `κ(-[b]->B => -[b]->?).
+ * B' and B" differently (and therefore cannot simply transform their superclass), we cannot write `κ(-[b]->B =>
+ * -[b]->?).
  * For this case, we can use unions. With unions, we can link to elements with different types (that /usually/ share
  * a supertype; but that is not a requirement). We can therefore write the following containment operation:
  * <pre>
@@ -92,7 +94,7 @@ public record Containment(Union sources,
 
     @Override
     public String toString() {
-        var f = filters.stream().map(Object::toString).collect(Collectors.joining( ", "));
+        var f = filters.stream().map(Object::toString).collect(Collectors.joining(", "));
         if (!f.isEmpty()) {
             f = " | " + f;
         }

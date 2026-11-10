@@ -14,7 +14,9 @@ public class SourceSelectionBuilder {
         this.pattern = Pattern.from(element);
     }
 
-    private SourceSelectionBuilder(Pattern pattern) {this.pattern = pattern;}
+    private SourceSelectionBuilder(Pattern pattern) {
+        this.pattern = pattern;
+    }
 
     public SourceSelectionBuilder join(FQN element, Collection<Tuple<String, String>> properties) {
         return new SourceSelectionBuilder(pattern.join(element, properties));
@@ -28,12 +30,12 @@ public class SourceSelectionBuilder {
         return new SourceSelectionBuilder(pattern.join(element, property));
     }
 
-    public SourceSelectionBuilder ref(FQN element, String reference) {
-        return new SourceSelectionBuilder(pattern.ref(element, reference));
-    }
-
     public SourceSelectionBuilder join(FQN element, FunctionInvocation functionInvocation) {
         return new SourceSelectionBuilder(pattern.join(element, functionInvocation));
+    }
+
+    public SourceSelectionBuilder ref(FQN element, String reference) {
+        return new SourceSelectionBuilder(pattern.ref(element, reference));
     }
 
     public TargetSelectionBuilder create(FQN element) {

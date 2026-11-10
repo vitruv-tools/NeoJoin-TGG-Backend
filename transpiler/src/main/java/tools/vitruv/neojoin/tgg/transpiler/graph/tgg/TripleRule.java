@@ -101,7 +101,7 @@ public class TripleRule {
 
     private TGGNode createNode(FQN type) {
         var name = nameRepository.getLower(type);
-        return TGGNode.Black(name, type, nameRepository);
+        return TGGNode.createBlack(name, type, nameRepository);
     }
 
     private TGGNode addSourceNode(FQN type) {
@@ -117,7 +117,7 @@ public class TripleRule {
     }
 
     public Correspondence addCorrespondenceRule(TGGNode source, TGGNode target) {
-        Correspondence correspondence = Correspondence.Black(source, target);
+        Correspondence correspondence = Correspondence.createBlack(source, target);
         correspondences.add(correspondence);
         return correspondence;
     }

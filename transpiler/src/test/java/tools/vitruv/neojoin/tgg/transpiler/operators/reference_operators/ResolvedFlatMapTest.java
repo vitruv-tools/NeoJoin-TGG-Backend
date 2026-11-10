@@ -169,7 +169,7 @@ class ResolvedFlatMapTest extends AbstractTripleGraphGrammarTest {
                         NameRepositoryFixtures.someNameRepository(),
                         new ArrayList<>(
                                 List.of(
-                                        TGGLink.Green(
+                                        TGGLink.createGreen(
                                                 "someOtherSourceLinkFromParentToChild",
                                                 anotherSourceChildNode))),
                         new LinkedHashSet<>());
@@ -184,7 +184,7 @@ class ResolvedFlatMapTest extends AbstractTripleGraphGrammarTest {
                         new LinkedHashSet<>());
 
         final Correspondence anotherRuleCorrespondence =
-                Correspondence.Green(anotherSourceParentNode, anotherTargetNode);
+                Correspondence.createGreen(anotherSourceParentNode, anotherTargetNode);
 
         return TripleRuleFixtures.someTripleRule(
                 new ArrayList<>(List.of(anotherSourceChildNode, anotherSourceParentNode)),

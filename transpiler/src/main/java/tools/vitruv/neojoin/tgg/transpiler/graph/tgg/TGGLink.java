@@ -16,11 +16,11 @@ public class TGGLink extends AbstractGraphLink<TGGNode> {
         this.green = green;
     }
 
-    public static TGGLink Green(String name, TGGNode target) {
+    public static TGGLink createGreen(String name, TGGNode target) {
         return new TGGLink(name, target, true);
     }
 
-    public static TGGLink Black(String name, TGGNode target) {
+    public static TGGLink createBlack(String name, TGGNode target) {
         return new TGGLink(name, target, false);
     }
 

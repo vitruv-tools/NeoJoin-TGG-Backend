@@ -4,7 +4,11 @@ import tools.vitruv.neojoin.tgg.operators.FQN;
 import tools.vitruv.neojoin.tgg.operators.FunctionInvocation;
 import tools.vitruv.neojoin.tgg.operators.Tuple;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Pattern {
@@ -99,7 +103,9 @@ public class Pattern {
     }
 
     public boolean startsWith(Pattern other) {
-        if (this.links.size() < other.links.size()) return false;
+        if (this.links.size() < other.links.size()) {
+            return false;
+        }
         for (var i = 0; i < other.links.size(); ++i) {
             if (!this.links.get(i).equals(other.links.get(i))) {
                 return false;
@@ -115,7 +121,9 @@ public class Pattern {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Pattern pattern)) return false;
+        if (!(o instanceof Pattern pattern)) {
+            return false;
+        }
         return Objects.equals(links, pattern.links);
     }
 

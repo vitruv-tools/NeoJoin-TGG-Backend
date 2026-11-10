@@ -25,7 +25,9 @@ public class ResolvedSimpleProjection implements ResolvedProjection {
         var slice = rule.allSourcesAsSlice();
         source.extendSlice(slice);
         var bottomNode = slice.findByType(source.bottom()).orElseThrow();
-        var targetNode = rule.allTargetsAsSlice().findByType(target).orElseThrow(() -> new RuntimeException("Projection: could not find " + target.fqn() + " in target graph"));
+        var targetNode = rule.allTargetsAsSlice().findByType(target).orElseThrow(
+            () -> new RuntimeException("Projection: could not find " + target.fqn() + " in target graph")
+        );
         var variable = bottomNode.addVariableAttribute(sourceProperty, LogicOperator.Equals);
         targetNode.addAttribute(new Attribute(targetProperty, LogicOperator.Equals, variable));
     }

@@ -32,6 +32,7 @@ public record Mapping(FQN source, FQN target) {
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof Mapping(var source1, var target1) && Objects.equals(source, source1) && Objects.equals(target, target1);
+        return o instanceof Mapping(var source1, var target1)
+                && Objects.equals(source, source1) && Objects.equals(target, target1);
     }
 }

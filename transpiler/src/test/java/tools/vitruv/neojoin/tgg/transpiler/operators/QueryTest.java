@@ -1,7 +1,11 @@
 package tools.vitruv.neojoin.tgg.transpiler.operators;
 
 import org.junit.jupiter.api.Test;
-import tools.vitruv.neojoin.tgg.operators.*;
+import tools.vitruv.neojoin.tgg.operators.Containment;
+import tools.vitruv.neojoin.tgg.operators.FQN;
+import tools.vitruv.neojoin.tgg.operators.Link;
+import tools.vitruv.neojoin.tgg.operators.LogicOperator;
+import tools.vitruv.neojoin.tgg.operators.Query;
 import tools.vitruv.neojoin.tgg.operators.projections.SimpleProjection;
 import tools.vitruv.neojoin.tgg.operators.selection.Pattern;
 import tools.vitruv.neojoin.tgg.operators.expressions.ConstantExpression;
@@ -33,7 +37,12 @@ class QueryTest {
 
     @Test
     void joinedProjection() {
-        var projection = new SimpleProjection(Pattern.from(pkg("A")).ref(pkg("B"), "b"), new FQN("t", "A'"), "id", "name");
+        var projection = new SimpleProjection(
+            Pattern.from(pkg("A")).ref(pkg("B"), "b"),
+            new FQN("t", "A'"),
+            "id",
+            "name"
+        );
         var query = Query.from(pkg("A")).create(t("A'")).build()
                 .project(projection);
         assertEquals("σ(pkg.A => t.A')π(pkg.A-[b]->pkg.B::id => t.A'::name)", query.toString());
@@ -49,7 +58,7 @@ class QueryTest {
     void simpleFilter() {
         var query = Query.from(pkg("A")).ref(pkg("B"), "b")
                 .create(t("A'")).build()
-                .filter(pkg("B"), "id", LogicOperator.Equals, ConstantExpression.String("foo"));
+                .filter(pkg("B"), "id", LogicOperator.Equals, ConstantExpression.createString("foo"));
         assertEquals("σ(pkg.A-[b]->pkg.B => t.A')φ(pkg.B::id==\"foo\")", query.toString());
     }
 

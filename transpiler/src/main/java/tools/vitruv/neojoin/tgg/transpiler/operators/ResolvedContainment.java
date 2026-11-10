@@ -44,7 +44,10 @@ public class ResolvedContainment implements RuleGenerator, Mappable {
         var targetSlice = rule.addTargetSlice(List.of(targetNode), List.of());
         extendSlice(sourceSlice, source);
         extendSlice(targetSlice, target);
-        sourceSlice.addCorrespondence(sourceSlice.findByType(source.top()).orElseThrow(), targetSlice.findByType(target.top()).orElseThrow());
+        sourceSlice.addCorrespondence(
+            sourceSlice.findByType(source.top()).orElseThrow(),
+            targetSlice.findByType(target.top()).orElseThrow()
+        );
         for (var filter : filters) {
             filter.extendRule(rule);
         }

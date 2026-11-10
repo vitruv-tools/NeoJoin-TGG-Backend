@@ -1,7 +1,6 @@
 package tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -154,7 +153,7 @@ class ResolvedMapTest extends AbstractTripleGraphGrammarTest {
                         NameRepositoryFixtures.someNameRepository(),
                         new ArrayList<>(
                                 List.of(
-                                        TGGLink.Green(
+                                        TGGLink.createGreen(
                                                 "someOtherSourceLinkFromParentToChild",
                                                 anotherSourceChildNode))),
                         new LinkedHashSet<>());
@@ -169,7 +168,7 @@ class ResolvedMapTest extends AbstractTripleGraphGrammarTest {
                         new LinkedHashSet<>());
 
         final Correspondence anotherRuleCorrespondence =
-                Correspondence.Black(anotherSourceParentNode, anotherTargetNode);
+                Correspondence.createBlack(anotherSourceParentNode, anotherTargetNode);
 
         return TripleRuleFixtures.someTripleRule(
                 new ArrayList<>(List.of(anotherSourceChildNode, anotherSourceParentNode)),

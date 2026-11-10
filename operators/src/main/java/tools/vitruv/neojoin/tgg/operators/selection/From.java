@@ -23,7 +23,9 @@ public class From implements PatternLink {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof From from)) return false;
+        if (!(o instanceof From from)) {
+            return false;
+        }
         return Objects.equals(element, from.element);
     }
 

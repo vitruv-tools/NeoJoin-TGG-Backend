@@ -4,7 +4,11 @@ import tools.vitruv.neojoin.tgg.transpiler.graph.tgg.TGGSlice;
 import tools.vitruv.neojoin.tgg.transpiler.graph.tgg.TripleGrammar;
 import tools.vitruv.neojoin.tgg.transpiler.graph.tgg.TripleRule;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class ResolvedView {
@@ -26,7 +30,10 @@ public class ResolvedView {
      */
     public TripleGrammar toGrammar(String name) {
         var rules = queries.stream().map(ResolvedQuery::getGeneratedRules).flatMap(Collection::stream).toList();
-        var constraints = queries.stream().map(ResolvedQuery::getGeneratedConstraints).flatMap(Collection::stream).toList();
+        var constraints = queries.stream()
+                .map(ResolvedQuery::getGeneratedConstraints)
+                .flatMap(Collection::stream)
+                .toList();
         var sourceMetamodels = extractSourceMetamodels(rules);
         var targetMetamodels = extractTargetMetamodels(rules);
         return new TripleGrammar(name, rules, constraints, sourceMetamodels, targetMetamodels);

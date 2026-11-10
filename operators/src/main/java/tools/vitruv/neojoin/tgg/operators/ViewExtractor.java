@@ -4,10 +4,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.jspecify.annotations.NonNull;
 
-import tools.vitruv.neojoin.model.*;
 import tools.vitruv.neojoin.expression_parser.model.ReferenceOperator;
 import tools.vitruv.neojoin.expression_parser.parser.exception.UnsupportedReferenceExpressionException;
 import tools.vitruv.neojoin.expression_parser.parser.strategy.PatternMatchingStrategy;
+import tools.vitruv.neojoin.model.AQR;
+import tools.vitruv.neojoin.model.AQRFeature;
+import tools.vitruv.neojoin.model.AQRFrom;
+import tools.vitruv.neojoin.model.AQRJoin;
+import tools.vitruv.neojoin.model.AQRSource;
+import tools.vitruv.neojoin.model.AQRTargetClass;
 import tools.vitruv.neojoin.tgg.operators.exception.UnsupportedProjectionException;
 import tools.vitruv.neojoin.tgg.operators.selection.Pattern;
 

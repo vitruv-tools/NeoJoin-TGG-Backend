@@ -26,7 +26,9 @@ public class ResolvedConstantFilter implements ResolvedFilter {
 
     @Override
     public void extendRule(TripleRule rule) {
-        var node = rule.findSourceNodeByType(element).orElseThrow(() -> new RuntimeException("Filter: element " + element.fqn() + " not found in source graph"));
+        var node = rule.findSourceNodeByType(element).orElseThrow(
+            () -> new RuntimeException("Filter: element " + element.fqn() + " not found in source graph")
+        );
         node.addConstantAttribute(property, operator, value);
     }
 

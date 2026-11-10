@@ -10,27 +10,66 @@ import tools.vitruv.neojoin.expression_parser.model.ReferenceFilter;
 import tools.vitruv.neojoin.expression_parser.model.ReferenceOperator;
 import tools.vitruv.neojoin.expression_parser.model.predicate_expression.ComparisonOperator;
 import tools.vitruv.neojoin.expression_parser.model.predicate_expression.ConstantValue;
-import tools.vitruv.neojoin.tgg.operators.*;
+import tools.vitruv.neojoin.tgg.operators.FQN;
+import tools.vitruv.neojoin.tgg.operators.Filter;
+import tools.vitruv.neojoin.tgg.operators.LogicOperator;
+import tools.vitruv.neojoin.tgg.operators.Projection;
+import tools.vitruv.neojoin.tgg.operators.Query;
+import tools.vitruv.neojoin.tgg.operators.Selection;
 import tools.vitruv.neojoin.tgg.operators.expressions.ConstantExpression;
 import tools.vitruv.neojoin.tgg.operators.filters.ConstantFilter;
 import tools.vitruv.neojoin.tgg.operators.filters.FunctionFilter;
 import tools.vitruv.neojoin.tgg.operators.projections.DerivedProjection;
 import tools.vitruv.neojoin.tgg.operators.projections.SimpleProjection;
 import tools.vitruv.neojoin.tgg.operators.reference_operator.ReferenceOperatorChain;
-import tools.vitruv.neojoin.tgg.operators.selection.*;
-import tools.vitruv.neojoin.tgg.transpiler.operators.*;
+import tools.vitruv.neojoin.tgg.operators.selection.From;
+import tools.vitruv.neojoin.tgg.operators.selection.Join;
+import tools.vitruv.neojoin.tgg.operators.selection.PatternLink;
+import tools.vitruv.neojoin.tgg.operators.selection.Ref;
+import tools.vitruv.neojoin.tgg.operators.selection.ThetaJoin;
+import tools.vitruv.neojoin.tgg.transpiler.operators.ResolvedContainment;
+import tools.vitruv.neojoin.tgg.transpiler.operators.ResolvedFilter;
+import tools.vitruv.neojoin.tgg.transpiler.operators.ResolvedLink;
+import tools.vitruv.neojoin.tgg.transpiler.operators.ResolvedProjection;
+import tools.vitruv.neojoin.tgg.transpiler.operators.ResolvedQuery;
+import tools.vitruv.neojoin.tgg.transpiler.operators.ResolvedSelection;
+import tools.vitruv.neojoin.tgg.transpiler.operators.ResolvedView;
 import tools.vitruv.neojoin.tgg.transpiler.operators.filters.ResolvedConstantFilter;
 import tools.vitruv.neojoin.tgg.transpiler.operators.filters.ResolvedFunctionFilter;
-import tools.vitruv.neojoin.tgg.transpiler.operators.patterns.*;
+import tools.vitruv.neojoin.tgg.transpiler.operators.patterns.ResolvedFrom;
+import tools.vitruv.neojoin.tgg.transpiler.operators.patterns.ResolvedJoin;
+import tools.vitruv.neojoin.tgg.transpiler.operators.patterns.ResolvedPattern;
+import tools.vitruv.neojoin.tgg.transpiler.operators.patterns.ResolvedPatternLink;
+import tools.vitruv.neojoin.tgg.transpiler.operators.patterns.ResolvedRef;
+import tools.vitruv.neojoin.tgg.transpiler.operators.patterns.ResolvedThetaJoin;
 import tools.vitruv.neojoin.tgg.transpiler.operators.projections.ResolvedDerivedProjection;
 import tools.vitruv.neojoin.tgg.transpiler.operators.projections.ResolvedSimpleProjection;
-import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.*;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedCollectReferences;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedCollectionMemberFeatureCall;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedFeatureCall;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedFindAny;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedFlatMap;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedMap;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedReferenceFilter;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedReferenceOperator;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedReferenceOperatorChain;
+import tools.vitruv.neojoin.tgg.transpiler.operators.reference_operators.ResolvedSingleMemberFeatureCall;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TranspilerQueryResolver extends QueryResolver<ResolvedView, ResolvedQuery, ResolvedSelection, ResolvedProjection, ResolvedReferenceOperatorChain, ResolvedFilter, ResolvedContainment, ResolvedLink, ResolvedPattern, ResolvedPatternLink> {
+public class TranspilerQueryResolver extends QueryResolver<
+        ResolvedView,
+        ResolvedQuery,
+        ResolvedSelection,
+        ResolvedProjection,
+        ResolvedReferenceOperatorChain,
+        ResolvedFilter,
+        ResolvedContainment,
+        ResolvedLink,
+        ResolvedPattern,
+        ResolvedPatternLink> {
 
     @Override
     ResolvedView createView(List<ResolvedQuery> queries) {
@@ -38,7 +77,11 @@ public class TranspilerQueryResolver extends QueryResolver<ResolvedView, Resolve
     }
 
     @Override
-    public ResolvedQuery resolveQuery(Query query, Optional<ResolvedContainment> containment, List<ResolvedLink> links) {
+    public ResolvedQuery resolveQuery(
+            Query query,
+            Optional<ResolvedContainment> containment,
+            List<ResolvedLink> links
+    ) {
         var selection = resolveSelection(query.selection());
         var projections = query.projections().stream().map(this::resolveProjection).toList();
         var referenceOperators = query.referenceOperators().stream().map(this::resolveReferenceOperatorChain).toList();
@@ -72,9 +115,9 @@ public class TranspilerQueryResolver extends QueryResolver<ResolvedView, Resolve
             final ResolvedReferenceOperator resolvedOperator;
             switch (currentReferenceOperator) {
                 case FeatureCall featureCall ->
-                        resolvedOperator =
-                                new ResolvedFeatureCall(
-                                        emptySourceFqn.withLocalName(featureCall.getSimpleName()));
+                    resolvedOperator =
+                            new ResolvedFeatureCall(
+                                    emptySourceFqn.withLocalName(featureCall.getSimpleName()));
                 case MemberFeatureCall memberFeatureCall when !memberFeatureCall.isCollection() -> {
                     final FeatureInformation featureInformation =
                             memberFeatureCall.getFeatureInformation();
@@ -144,7 +187,11 @@ public class TranspilerQueryResolver extends QueryResolver<ResolvedView, Resolve
     }
 
     @Override
-    public ResolvedContainment createContainment(ResolvedPattern source, ResolvedPattern target, List<ResolvedFilter> filters) {
+    public ResolvedContainment createContainment(
+            ResolvedPattern source,
+            ResolvedPattern target,
+            List<ResolvedFilter> filters
+    ) {
         return new ResolvedContainment(source, target, filters);
     }
 
@@ -182,7 +229,7 @@ public class TranspilerQueryResolver extends QueryResolver<ResolvedView, Resolve
 
     private static ConstantExpression toConstantExpression(ConstantValue value) {
         if (value.isString()) {
-            return ConstantExpression.String(value.getValue());
+            return ConstantExpression.createString(value.getValue());
         }
 
         return new ConstantExpression(value.getValue());

@@ -37,7 +37,7 @@ public class ResolvedFlatMap implements ResolvedReferenceOperator {
         TGGNode childNode = sourceSlice.addNode(featureElement);
         childNode.makeGreen();
 
-        TGGLink parentLinkToChild = TGGLink.Green(feature, childNode);
+        TGGLink parentLinkToChild = TGGLink.createGreen(feature, childNode);
         builder.addLinkToPathToLastNode(feature);
         lastSourceNode.addLink(parentLinkToChild);
 
