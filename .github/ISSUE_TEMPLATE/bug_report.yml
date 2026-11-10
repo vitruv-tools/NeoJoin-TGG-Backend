@@ -1,0 +1,40 @@
+name: Bug report
+description: Something does not work as expected
+type: Bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please reduce the problem to a minimal example (the smallest query and meta-models that still show it) instead of attaching your whole project.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened
+      description: Describe the problem and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to reproduce
+      description: 'The operators or query, the source meta-models and the code that calls the backend (for example `ViewExtractor.viewFromAQR`).'
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: 'Commit or snapshot version of the backend and the NeoJoin snapshot it was built against'
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: 'Java version, eMoflon::Neo and Neo4j versions, operating system'
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: 'Paste the relevant lines, for example a stack trace or error message. Generated eMSL is welcome if the problem is in the generated rules.'
+      render: text
