@@ -24,7 +24,7 @@ import tools.vitruv.neojoin.tgg.operators.View;
 import tools.vitruv.neojoin.tgg.operators.ViewExtractor;
 import tools.vitruv.neojoin.tgg.operators.exception.UnsupportedProjectionException;
 import tools.vitruv.neojoin.tgg.transpiler.LocalNameResolver;
-import tools.vitruv.neojoin.utils.EMFUtils;
+import tools.vitruv.neojoin.common.EMFUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
